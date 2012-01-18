@@ -1,0 +1,5 @@
+Installation is currently not automated.
+
+Compile ParadizeLib for your target and link the resulting statically linked
+library ParadizeLib.a
+
