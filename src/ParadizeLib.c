@@ -236,41 +236,39 @@ Uint8 ParadizeLib_HandleInput ( Uint8 HandleAllEvents )
 			switch ( CurrentEvent.jhat.value )
 			{
 			case SDL_HAT_UP:
-				ParadizeLib_ProcessJoystick ( 0, 0 );
-				ParadizeLib_ProcessJoystick ( 1, -32000 );
+				InputDevicesStatus.joystick_state |= C_JOYSTICK_UP;
+				InputDevicesStatus.joystick_state &= ~ ( C_JOYSTICK_DOWN | C_JOYSTICK_LEFT | C_JOYSTICK_RIGHT );
 				break;
 			case SDL_HAT_RIGHT:
-				ParadizeLib_ProcessJoystick ( 0, 32000 );
-				ParadizeLib_ProcessJoystick ( 1, 0 );
-				break;
+				InputDevicesStatus.joystick_state |= C_JOYSTICK_RIGHT;
+				InputDevicesStatus.joystick_state &= ~ ( C_JOYSTICK_DOWN | C_JOYSTICK_LEFT | C_JOYSTICK_UP );
 				break;
 			case SDL_HAT_DOWN:
-				ParadizeLib_ProcessJoystick ( 0, 0 );
-				ParadizeLib_ProcessJoystick ( 1, 32000 );
+				InputDevicesStatus.joystick_state |= C_JOYSTICK_DOWN;
+				InputDevicesStatus.joystick_state &= ~ ( C_JOYSTICK_UP | C_JOYSTICK_LEFT | C_JOYSTICK_RIGHT );
 				break;
 			case SDL_HAT_LEFT:
-				ParadizeLib_ProcessJoystick ( 0, -32000 );
-				ParadizeLib_ProcessJoystick ( 1, 0 );
+				InputDevicesStatus.joystick_state |= C_JOYSTICK_LEFT;
+				InputDevicesStatus.joystick_state &= ~ ( C_JOYSTICK_DOWN | C_JOYSTICK_UP | C_JOYSTICK_RIGHT );
 				break;
 			case SDL_HAT_RIGHTUP:
-				ParadizeLib_ProcessJoystick ( 0, 32000 );
-				ParadizeLib_ProcessJoystick ( 1, -32000 );
+				InputDevicesStatus.joystick_state |= ( C_JOYSTICK_UP | C_JOYSTICK_RIGHT );
+				InputDevicesStatus.joystick_state &= ~ ( C_JOYSTICK_DOWN | C_JOYSTICK_LEFT );
 				break;
 			case SDL_HAT_RIGHTDOWN:
-				ParadizeLib_ProcessJoystick ( 0, 32000 );
-				ParadizeLib_ProcessJoystick ( 1, 32000 );
+				InputDevicesStatus.joystick_state |= ( C_JOYSTICK_DOWN | C_JOYSTICK_RIGHT );
+				InputDevicesStatus.joystick_state &= ~ ( C_JOYSTICK_UP | C_JOYSTICK_LEFT );
 				break;
 			case SDL_HAT_LEFTUP:
-				ParadizeLib_ProcessJoystick ( 0, -32000 );
-				ParadizeLib_ProcessJoystick ( 1, -32000 );
+				InputDevicesStatus.joystick_state |= ( C_JOYSTICK_UP | C_JOYSTICK_LEFT );
+				InputDevicesStatus.joystick_state &= ~ ( C_JOYSTICK_DOWN | C_JOYSTICK_RIGHT );
 				break;
 			case SDL_HAT_LEFTDOWN:
-				ParadizeLib_ProcessJoystick ( 0, -32000 );
-				ParadizeLib_ProcessJoystick ( 1, 32000 );
+				InputDevicesStatus.joystick_state |= ( C_JOYSTICK_DOWN | C_JOYSTICK_LEFT );
+				InputDevicesStatus.joystick_state &= ~ ( C_JOYSTICK_UP | C_JOYSTICK_RIGHT );
 				break;
 			default:
-				ParadizeLib_ProcessJoystick ( 0, 0 );
-				ParadizeLib_ProcessJoystick ( 1, 0 );
+				InputDevicesStatus.joystick_state &= ~ ( C_JOYSTICK_UP | C_JOYSTICK_DOWN | C_JOYSTICK_LEFT | C_JOYSTICK_RIGHT );
 				break;
 			}
 
