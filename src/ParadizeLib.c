@@ -35,9 +35,9 @@
 #include "ParadizeLib_Joystick.h"
 
 /* public data - can be read via Get-Functions() */
-SDL_Surface *screen; /* SDL_Surface for the screen */
+static SDL_Surface *screen; /* SDL_Surface for the screen */
 
-struct
+static struct
 {
 	Uint16 mouse_x;
 	Uint16 mouse_y;
@@ -189,6 +189,36 @@ Uint8 ParadizeLib_HandleInput ( Uint8 HandleAllEvents )
 
 			if ( keysym.sym == SDLK_PAUSE )
 				InputState = C_PAUSE;
+
+			/* handle cursor key input and treat as joystick input: */
+			if ( keysym.sym == SDLK_UP )
+				InputDevicesStatus.joystick_state |= C_JOYSTICK_UP;
+
+			if ( keysym.sym == SDLK_DOWN )
+				InputDevicesStatus.joystick_state |= C_JOYSTICK_DOWN;
+
+			if ( keysym.sym == SDLK_LEFT )
+				InputDevicesStatus.joystick_state |= C_JOYSTICK_LEFT;
+
+			if ( keysym.sym == SDLK_RIGHT )
+				InputDevicesStatus.joystick_state |= C_JOYSTICK_RIGHT;
+
+			break;
+		case SDL_KEYUP:
+			keysym = CurrentEvent.key.keysym;
+
+			/* handle cursor key input and treat as joystick input: */
+			if ( keysym.sym == SDLK_UP )
+				InputDevicesStatus.joystick_state &= ~C_JOYSTICK_UP;
+
+			if ( keysym.sym == SDLK_DOWN )
+				InputDevicesStatus.joystick_state &= ~C_JOYSTICK_DOWN;
+
+			if ( keysym.sym == SDLK_LEFT )
+				InputDevicesStatus.joystick_state &= ~C_JOYSTICK_LEFT;
+
+			if ( keysym.sym == SDLK_RIGHT )
+				InputDevicesStatus.joystick_state &= ~C_JOYSTICK_RIGHT;
 
 			break;
 #if(HAS_JOYSTICK_AXIS == 1)
