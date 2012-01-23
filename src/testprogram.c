@@ -32,9 +32,9 @@
 
 int main()
 {
-	Uint16 vbls;
+	Uint16 vbls,i;
 	Uint32 color;
-	Uint8 blue;
+	Uint8 blue,js,mask;
 	SDL_Surface *screen;
 	SDL_Rect src;
 
@@ -119,6 +119,23 @@ int main()
 			src.h =16;
 			color = SDL_MapRGB ( screen->format,0,200,0 );
 			SDL_FillRect ( screen,&src,color );
+		}
+
+		/* draw squares for each joystick button pressed: */
+		js = ParadizeLib_Stick();
+		mask = C_JOYSTICK_BUTTON1;
+		for(i=1; i < 5; i++)
+		{
+			if(js & mask)
+			{
+				src.x = i * (320 / 6);
+				src.y = 200;
+				src.w = 16;
+				src.h = 16;
+				color = SDL_MapRGB ( screen->format,255,255-i*(256/6),0 );
+				SDL_FillRect ( screen,&src,color );
+			}
+			mask = (mask >> 1);
 		}
 
 		/* emulated mouse pointer*/
