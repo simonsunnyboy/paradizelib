@@ -3,3 +3,15 @@ Installation is currently not automated.
 Compile ParadizeLib for your target and link the resulting statically linked
 library ParadizeLib.a
 
+You need the tool CMAKE (http://www.cmake.org) to compile ParadizeLib. If you 
+crosscompile, make sure  to use the appropriate ENABLE_.... CMAKE options and
+a suitable toolchain definition.
+
+E.q. for the simple most case:
+
+mkdir build
+cd build
+cmake ../
+
+The toolchain definition for the GP2X Wiz is provided under tools/
+
